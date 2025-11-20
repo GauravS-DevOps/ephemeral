@@ -30,4 +30,6 @@ jobs:
             --namespace $NS \
             --set image.tag=pr-$PR_ID
 
-### # ham hai yam , yam hai ham 
+      - name: Set kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
