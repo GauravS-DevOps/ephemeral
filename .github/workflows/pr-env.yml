@@ -29,3 +29,7 @@ jobs:
           helm upgrade --install pr-release-$PR_ID ./chart \
             --namespace $NS \
             --set image.tag=pr-$PR_ID
+
+      - name: Set kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
