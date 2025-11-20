@@ -21,7 +21,10 @@ jobs:
         uses: azure/setup-kubectl@v3
 
       - name: Set kubeconfig
-        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
 
       - name: Create Namespace for PR
         run: |
