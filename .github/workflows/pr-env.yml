@@ -29,3 +29,5 @@ jobs:
           helm upgrade --install pr-release-$PR_ID ./chart \
             --namespace $NS \
             --set image.tag=pr-$PR_ID
+
+### # ham hai yam , yam hai ham 
