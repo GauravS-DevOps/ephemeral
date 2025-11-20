@@ -3,10 +3,16 @@ name: PR Environment
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/pr-env.yml
 
 jobs:
   create-namespace:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -23,4 +29,3 @@ jobs:
           NS="ephermal-ns-$PR_ID"
           kubectl create namespace $NS --dry-run=client -o yaml | kubectl apply -f -
           echo "Namespace created: $NS"
-##
