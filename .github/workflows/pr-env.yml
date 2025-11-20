@@ -14,23 +14,13 @@ jobs:
       - name: Configure kubectl
         uses: azure/setup-kubectl@v3
 
+      - name: Set kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
       - name: Create Namespace for PR
         run: |
           PR_ID=${{ github.event.pull_request.number }}
           NS="ephermal-ns-$PR_ID"
           kubectl create namespace $NS --dry-run=client -o yaml | kubectl apply -f -
           echo "Namespace created: $NS"
-
-
-      - name: Deploy App using Helm
-        run: |
-          PR_ID=${{ github.event.pull_request.number }}
-          NS="ephermal-ns-$PR_ID"
-          helm upgrade --install pr-release-$PR_ID ./chart \
-            --namespace $NS \
-            --set image.tag=pr-$PR_ID
-
-      - name: Set kubeconfig
-        run: echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-
-#CHange to test PR
+##
